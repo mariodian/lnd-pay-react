@@ -6,7 +6,7 @@ Make sure to install [LND Pay backend](https://github.com/mariodian/lnd-pay) fir
 
 ## Install
 
-`npm install`
+`yarn install`
 
 ## Run
 
