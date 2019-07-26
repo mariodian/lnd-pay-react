@@ -16,8 +16,8 @@ class LndPay extends React.Component {
         super(props);
 
         this.state = {
-            amount: '',
-            description: '',
+            amount: this.props.amount && !isNaN(this.props.amount) ? this.props.amount : '',
+            description: this.props.description || '',
             payReq: '',
             copied: false,
             paid: false,
@@ -145,6 +145,9 @@ class LndPay extends React.Component {
 
     render() {
         let qrCode;
+        const amount = typeof this.props.amount !== 'undefined' && !isNaN(this.props.amount) ? this.props.amount : null;
+        const description = typeof this.props.description !== 'undefined' ? this.props.description : null;
+        const descriptionVisible = typeof this.props.descriptionHidden === 'undefined';
 
         if (this.state.showQR) {
             qrCode = <QrCode text={this.state.payReq} paid={this.state.paid} className="qr-wrapper text-center" />
@@ -153,6 +156,7 @@ class LndPay extends React.Component {
         return (
             <div className="App p-5">
                 <div className="input-group mb-2">
+                { amount === null && 
                 <input 
                     type="text" 
                     name="amount"
@@ -162,24 +166,36 @@ class LndPay extends React.Component {
                     onChange={this.handleChange.bind(this)}
                     ref={this.amount}
                 />
+                }
 
+                { descriptionVisible && 
                 <input 
                     type="text" 
                     name="description"
+                    readOnly={description !== null}
                     value={this.state.description}
                     className="form-control form-control-sm"
                     placeholder="Enter payment's description" 
                     onChange={this.handleChange.bind(this)}
                 />
+                }
                 </div>
 
-                <div className="input-group mb-3">
+                <div className="input-group input-group-sm mb-3">
+                { amount && 
+                <div className="input-group-prepend">
+                    <span className="input-group-text bg-secondary text-white border-left-0 border-top-0 border-bottom-0">
+                        <FontAwesomeIcon icon={['fab', 'bitcoin']} /> &nbsp; {this.props.amount} sat
+                    </span>
+                </div>
+                }
+
                 <input 
                     type="text" 
                     name="payReq"
                     value={this.state.payReq} 
-                    readOnly 
-                    className="form-control form-control-sm" 
+                    readOnly
+                    className={"form-control form-control-sm" + (amount !== null && " border-left-0")}
                     placeholder="Payment request" 
                     onChange={this.handleChange.bind(this)} 
                     ref={this.payReqRef} 

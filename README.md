@@ -16,6 +16,22 @@ Runs the app in the development mode.
 
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
+## Use
+
+`ReactDOM.render(<LndPay />, document.getElementById('root'));`
+
+### Options
+
+LndPay takes parameters `amount`, `description` and `descriptionHidden` that alter the way UI is build.
+
+Examples:
+
+`ReactDOM.render(<LndPay amount="10" />, document.getElementById('root'));`
+
+`ReactDOM.render(<LndPay description="Coffee payment" />, document.getElementById('root'));`
+
+`ReactDOM.render(<LndPay description="Coffee payment" descriptionHidden />, document.getElementById('root'));`
+
 ## Build
 
 Builds the app for production to the `build` folder.
