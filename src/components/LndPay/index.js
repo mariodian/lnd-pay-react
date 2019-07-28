@@ -5,7 +5,7 @@ import '../../helpers/fontawesome';
 import '../../helpers/date';
 import Config from '../../Config';
 import QrCode from '../QrCode';
-
+import { addMinutes } from "../../helpers/date";
 
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -93,7 +93,7 @@ class LndPay extends React.Component {
                 body: JSON.stringify({
                     tokens: parseInt(this.state.amount),
                     description: this.state.description,
-                    expires_at: new Date().addMinutes(Config.invoiceExpire).toISOString()
+                    expires_at: addMinutes(new Date(), Config.invoiceExpire).toISOString()
                 })
             });
             const content = await response.json();
